@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Challenge-1/Alura</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+
+    <body>
+
+        <header>
+            <img src="Imagenes/logo-alura.png">
+        </header>
+
+
+    
+        <main>
+        
+            <textarea class="entradatexto" id="textoOrigen" type="text" cols= "40" rows="30" placeholder="Ingres el texto Aqui" onkeyup=mostrarImagenTexto()></textarea>
+            <textarea class="SalideTexto" id="textoCifrado"type="text" cols= "50" rows="30" ></textarea>
+    
+          
+            
+            <div class="micontenidoimg" id="miContenedor"></div>
+           
+           
+            <div class="botones">
+                <button class="bttexto" id="btcifrar">Encriptar</button>
+                <button class="btcifrado" id="btdecifrar">Decodificar</button>
+                <button class="btcopiar" id="btcopiiar" style="display:none">Copiar</button>
+                </div>       
+        
+
+
+            <script>
+   
+                var textarea = document.getElementById("textoOrigen");
+                var contenedor = document.getElementById("miContenedor");
+
+                  function limpiatextarea(){
+                    document.getElementById("textoCifrado").value = "";
+                  }
+
+            function mostrarImagenTexto() {
+                if (textarea.value === "") {
+                 contenedor.innerHTML = '<img src="Imagenes/imagen_lupa.png" alt="Imagen de ejemplo" width="400px" height="350px" ><p>Ningún mensaje fue encontrado</p><br></br><p class="parrafo">Ingresa el texto que desees encriptar o desencriptar</p>';
+                } else {
+                        contenedor.innerHTML = "";}
+            }
+            
+            function cambiarLetras() {
+                mostrarboton()
+                var texto = document.getElementById("textoOrigen").value;
+                var array = texto.split("");
+                for (var i = 0; i < array.length; i++) {
+
+                    if (array[i] === "e") {
+                    array[i] = "enter";}
+                    else if (array[i] === "i"){
+                        array[i] = "imes"
+                    }   
+                    else if (array[i] === "a"){
+                        array[i] = "ai"
+                    }   
+                    else if (array[i] === "o"){
+                        array[i] = "ober"
+                    }
+                    else if (array[i] === "u"){
+                        array[i] = "ufat"     
+                    }      
+                }
+                texto = array.join("");
+                document.getElementById('textoCifrado').innerHTML =texto;
+                
+             }
+
+                    function desencriptar() {   
+                        mostrarboton()
+                        let cadena = document.getElementById("textoOrigen").value;
+                        let resultado = cadena.replace(/enter/g, "e").replace(/imes/g, "i").replace(/ai/g, "a").replace(/ober/g, "o").replace(/ufat/g, "u");
+                        document.getElementById("textoCifrado").value = resultado;
+                        
+                    }      
+
+                    function copyToClipboard() {
+                        let cadena = document.getElementById("textoCifrado").value;
+                        document.getElementById('textoCifrado').select();
+                        document.execCommand('copy');
+                        }
+
+                    function mostrarboton(){
+                        document.getElementById('btcopiiar').style.display = 'block';
+                        }   
+    
+
+            window.onload = mostrarImagenTexto()   
+
+            var button = document.getElementById("btcifrar");
+                button.onclick = cambiarLetras;
+
+            var button = document.getElementById("btdecifrar");
+                button.onclick = desencriptar;    
+
+             var button = document.getElementById("btcopiiar");
+                 button.onclick = copyToClipboard;
+                // cambiarLetras,
+
+            </script>
+    
+        </main>   
+
+    </body>
+</html>
+
+
